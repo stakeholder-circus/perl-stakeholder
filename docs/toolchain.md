@@ -1,14 +1,7 @@
-# Perl Toolchain
+# Toolchain
 
-- State: scaffold-only next-20 prep
-- Toolchain source: `built-in`
-
-## Planned commands after promotion
-  - `perl -v`
-
-## Scaffold-time checks
-- `python3 scripts/validate_scaffold.py`
-- `/nix/var/nix/profiles/default/bin/nix --extra-experimental-features 'nix-command flakes' flake lock`
-
-## Current limitation
-- Use core Perl first; do not assume cpanm is installed.
+- Host CLI: built-in/Homebrew Perl
+- Required core modules: `JSON::PP`, `FindBin`, `Test::More`
+- Native syntax check: `perl -c bin/stakeholder.pl`
+- Native tests: `prove -Ilib t`
+- Docker runtime: `perl:5.40-slim`

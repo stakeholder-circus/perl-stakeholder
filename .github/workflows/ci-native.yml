@@ -1,15 +1,17 @@
 name: ci-native
 
 on:
-  push:
-  pull_request:
+  workflow_call:
+  workflow_dispatch:
 
 jobs:
-  scaffold-check:
+  native:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.x'
-      - run: python3 scripts/validate_scaffold.py
+      - name: Check syntax
+        run: perl -c bin/stakeholder.pl
+      - name: Run tests
+        run: prove -Ilib t
+      - name: Contract smoke
+        run: perl -Ilib bin/stakeholder.pl --output-format json --focus-family code_analyzer --seed 123

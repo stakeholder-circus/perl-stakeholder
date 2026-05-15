@@ -1,4 +1,13 @@
-FROM alpine:3.20
-LABEL org.opencontainers.image.title="perl-stakeholder"
-LABEL org.opencontainers.image.description="Scaffold-only placeholder container for perl-stakeholder"
-CMD ["sh", "-lc", "echo 'perl-stakeholder scaffold-only baseline';"]
+FROM perl:5.40-slim AS test
+WORKDIR /app
+COPY lib ./lib
+COPY t ./t
+COPY bin ./bin
+RUN perl -c bin/stakeholder.pl
+RUN prove -Ilib t
+
+FROM perl:5.40-slim
+WORKDIR /app
+COPY lib ./lib
+COPY bin ./bin
+ENTRYPOINT ["perl", "-Ilib", "bin/stakeholder.pl"]

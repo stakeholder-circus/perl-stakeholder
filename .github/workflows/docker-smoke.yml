@@ -1,13 +1,23 @@
 name: docker-smoke
 
 on:
-  push:
-  pull_request:
+  workflow_call:
+  workflow_dispatch:
 
 jobs:
-  docker-smoke:
+  docker:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: docker build -t perl-stakeholder .
-      - run: docker run --rm perl-stakeholder
+      - name: Build image
+        run: docker build -t perl-stakeholder .
+      - name: List values
+        run: docker run --rm perl-stakeholder --list-values
+      - name: JSON smoke
+        run: docker run --rm perl-stakeholder --output-format json --focus-family code_analyzer --seed 123
+      - name: Experimental provider fail-fast
+        run: |
+          set +e
+          docker run --rm perl-stakeholder --experimental-provider local-demo
+          status=$?
+          test "$status" -eq 2

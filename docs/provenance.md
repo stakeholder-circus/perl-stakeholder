@@ -1,5 +1,7 @@
-- Repository: `perl-stakeholder`
-- Upstream reference: `giacomo-b/rust-stakeholder`
-- Imported upstream history is preserved in git history.
-- New scaffold content is AI-assisted and manually reviewed.
-- Attribution intent: preserve upstream MIT notice exactly and record later human-authored changes explicitly.
+# Provenance
+
+This repo is a derivative local rewrite tranche in the stakeholder parity program.
+
+- Upstream MIT notice is preserved unchanged.
+- Deterministic tranche behavior follows the canonical contract in `stakeholder-core`.
+- Live-provider/runtime behavior is intentionally deferred and currently fail-fast.

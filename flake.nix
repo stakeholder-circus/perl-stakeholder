@@ -1,5 +1,5 @@
 {
-  description = "perl-stakeholder scaffold";
+  description = "perl-stakeholder deterministic tranche";
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
   outputs = { self, nixpkgs }:
     let
@@ -11,9 +11,11 @@
         in {
           check = pkgs.writeShellApplication {
             name = "check";
-            runtimeInputs = [ pkgs.python3 ];
+            runtimeInputs = [ pkgs.python3 pkgs.perl ];
             text = ''
               python3 scripts/validate_scaffold.py
+              perl -c bin/stakeholder.pl
+              prove -Ilib t
             '';
           };
           default = self.packages.${system}.check;
