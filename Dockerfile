@@ -1,4 +1,4 @@
-FROM perl:5.40-slim AS test
+FROM perl:5.42-slim AS test
 WORKDIR /app
 COPY lib ./lib
 COPY t ./t
@@ -6,7 +6,7 @@ COPY bin ./bin
 RUN perl -c bin/stakeholder.pl
 RUN prove -Ilib t
 
-FROM perl:5.40-slim
+FROM perl:5.42-slim
 WORKDIR /app
 COPY lib ./lib
 COPY bin ./bin
