@@ -10,5 +10,6 @@ permissions:
 jobs:
   dependency-review:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
-      - run: echo "Dependency review is advisory for this newly published repo until GitHub dependency graph is enabled in repository security settings."
+      - uses: actions/dependency-review-action@2031cfc080254a8a887f58cffee85186f0e49e48 # v4
